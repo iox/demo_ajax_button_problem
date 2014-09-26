@@ -1,6 +1,44 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT EDIT -->
 
 
+<def tag="card" for="Agenda">
+  <card class="agenda" param="default" merge>
+    <header: param>
+      <h4 param="heading"><name/></h4>
+    </header:>
+    <body: param>
+      <ht key="agenda_item.collection.count" count="&this.agenda_items.size">
+         <count:agenda_items param/>
+      </ht>
+    </body:>
+  </card>
+</def>
+
+<def tag="card" for="AgendaItem">
+  <card class="agenda-item" param="default" merge>
+    <header: param>
+      <h4 param="heading"><name/></h4>
+    </header:>
+    <body: param>
+      <view:description param="description"/>
+      <ht key="agenda_subitem.collection.count" count="&this.agenda_subitems.size">
+         <count:agenda_subitems param/>
+      </ht>
+    </body:>
+  </card>
+</def>
+
+<def tag="card" for="AgendaSubitem">
+  <card class="agenda-subitem" param="default" merge>
+    <header: param>
+      <h4 param="heading"><name/></h4>
+    </header:>
+    <body: param>
+      <view:description param="description"/>
+    </body:>
+  </card>
+</def>
+
 <def tag="card" for="User">
   <card class="user" param="default" merge>
     <header: param>

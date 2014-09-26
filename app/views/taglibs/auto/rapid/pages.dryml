@@ -6,8 +6,521 @@
 <def tag="main-nav">
   <navigation class="main-nav" merge-attrs param="default">
     <nav-item href="#{base_url}/">Home</nav-item>
+    <nav-item with="&Agenda"><ht key="agenda.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
   </navigation>
 </def>
+
+
+
+
+<!-- ====== AgendaItem Pages ====== -->
+
+<def tag="index-page" for="AgendaItem">
+  <page merge title="#{ht 'agenda_item.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page agenda-item" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda_item.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="agenda_item.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="agenda_item.actions.new">New Agenda item</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="AgendaItem">
+  <page merge title="#{ht 'agenda_item.new.title', :default=>[' New Agenda item'] }">
+    <body: class="new-page agenda-item" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda_item.new.heading">
+          New Agenda item
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'agenda_item.actions.create', :default=>['Create Agenda item']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="AgendaItem">
+  <page merge title="#{ht 'agenda_item.show.title', :default=>['Agenda item'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page agenda-item" param/>
+
+    <content-header: param>
+      <a:agenda param="parent-link">&laquo; <ht key="agenda_item.actions.back_to_parent" parent="Agenda" name="&this">Back to <name/></ht></a:agenda>
+      <h2 param="heading">
+        <ht key="agenda_item.show.heading" name="#{name(:no_wrapper => true)}">
+          Agenda item <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="agenda_item.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Agenda item
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <view:description param="description" />
+      <field-list fields="position" param/>
+      <section param="collection-section">
+        <h3 param="collection-heading">
+          <ht key="agenda_subitem.collection.heading" count="&this.agenda_subitems.count" >
+            <human-collection-name collection="agenda_subitems" your/>
+          </ht>
+        </h3>
+
+        <collection:agenda_subitems param/>
+
+        <a:agenda_subitems action="new" if="&can_create?(@agenda_item.agenda_subitems)" param="new-link">
+          <ht key="agenda_subitem.actions.new" count="1">
+            New Agenda Subitem
+          </ht>
+        </a:agenda_subitems>
+      </section>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="AgendaItem">
+  <page merge title="#{ht 'agenda_item.edit.title', :default=>['Edit Agenda item'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page agenda-item" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda_item.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Agenda item
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'agenda_item.actions.delete', :default=>['Remove This Agenda item']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+<def tag="index-for-agenda-page" polymorphic/>
+<def tag="index-for-agenda-page" for="AgendaItem">
+  <page merge title="#{ht 'agenda_item.index_for_owner.title', :count=>100, :default=>['Agenda items for']} #{name :with => @agenda, :no_wrapper => true}">
+    <body: class="index-for-owner-page agenda agenda-item" param/>
+    <content-header: param>
+      <div param="back-to">
+        <t key="hobo.actions.back">Back to</t> <a with="&@agenda"/>
+      </div>
+      <h2 param="heading" if="&@owner">
+        <ht key="agenda_item.index_for_owner.heading" count="&@agenda.agenda_items.count">
+          <human-collection-name with="&@agenda" collection="agenda_items" your/>
+        </ht>
+      </h2>
+
+      <h3 param="subheading">
+        <ht key="agenda_item.index_for_owner.subheading">
+          For:
+        </ht>
+        <a with="&@agenda"/>
+      </h3>
+      <p param="count" if>
+        <ht key="agenda_item.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&@agenda.agenda_items" param="new-link">
+        <ht key="agenda_item.actions.new" >New Agenda item</ht>
+      </a>
+
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-for-agenda-page" polymorphic/>
+<def tag="new-for-agenda-page" for="AgendaItem">
+  <page merge title="#{ht 'agenda_item.new_for_owner.title', :default=>['New Agenda item for']} #{name :with => @agenda}">
+    <body: class="new-for-owner-page  agenda-item" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda_item.new_for_owner.heading">
+          New Agenda Item
+        </ht>
+      </h2>
+      <h3 param="subheading">
+        <ht key="agenda_item.new_for_owner.subheading">
+          For:
+        </ht>
+        <a with="&@agenda"/>
+      </h3>
+    </content-header:>
+
+    <content-body: param>
+      <form owner="agenda" method="post" param>
+        <field-list: skip="agenda"/>
+        <submit: label="#{ht 'agenda_item.actions.create', :default=>['Create Agenda item']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== AgendaSubitem Pages ====== -->
+
+<def tag="index-page" for="AgendaSubitem">
+  <page merge title="#{ht 'agenda_subitem.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page agenda-subitem" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda_subitem.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="agenda_subitem.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="agenda_subitem.actions.new">New Agenda subitem</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="AgendaSubitem">
+  <page merge title="#{ht 'agenda_subitem.new.title', :default=>[' New Agenda subitem'] }">
+    <body: class="new-page agenda-subitem" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda_subitem.new.heading">
+          New Agenda subitem
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'agenda_subitem.actions.create', :default=>['Create Agenda subitem']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="AgendaSubitem">
+  <page merge title="#{ht 'agenda_subitem.show.title', :default=>['Agenda subitem'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page agenda-subitem" param/>
+
+    <content-header: param>
+      <a:agenda_item param="parent-link">&laquo; <ht key="agenda_subitem.actions.back_to_parent" parent="Agenda item" name="&this">Back to <name/></ht></a:agenda_item>
+      <h2 param="heading">
+        <ht key="agenda_subitem.show.heading" name="#{name(:no_wrapper => true)}">
+          Agenda subitem <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="agenda_subitem.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Agenda subitem
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <view:description param="description" />
+      <field-list fields="position" param/>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="AgendaSubitem">
+  <page merge title="#{ht 'agenda_subitem.edit.title', :default=>['Edit Agenda subitem'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page agenda-subitem" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda_subitem.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Agenda subitem
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'agenda_subitem.actions.delete', :default=>['Remove This Agenda subitem']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
+<def tag="index-for-agenda-item-page" polymorphic/>
+<def tag="index-for-agenda-item-page" for="AgendaSubitem">
+  <page merge title="#{ht 'agenda_subitem.index_for_owner.title', :count=>100, :default=>['Agenda subitems for']} #{name :with => @agenda_item, :no_wrapper => true}">
+    <body: class="index-for-owner-page agenda-item agenda-subitem" param/>
+    <content-header: param>
+      <div param="back-to">
+        <t key="hobo.actions.back">Back to</t> <a with="&@agenda_item"/>
+      </div>
+      <h2 param="heading" if="&@owner">
+        <ht key="agenda_subitem.index_for_owner.heading" count="&@agenda_item.agenda_subitems.count">
+          <human-collection-name with="&@agenda_item" collection="agenda_subitems" your/>
+        </ht>
+      </h2>
+
+      <h3 param="subheading">
+        <ht key="agenda_subitem.index_for_owner.subheading">
+          For:
+        </ht>
+        <a with="&@agenda_item"/>
+      </h3>
+      <p param="count" if>
+        <ht key="agenda_subitem.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&@agenda_item.agenda_subitems" param="new-link">
+        <ht key="agenda_subitem.actions.new" >New Agenda subitem</ht>
+      </a>
+
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-for-agenda-item-page" polymorphic/>
+<def tag="new-for-agenda-item-page" for="AgendaSubitem">
+  <page merge title="#{ht 'agenda_subitem.new_for_owner.title', :default=>['New Agenda subitem for']} #{name :with => @agenda_item}">
+    <body: class="new-for-owner-page  agenda-subitem" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda_subitem.new_for_owner.heading">
+          New Agenda Subitem
+        </ht>
+      </h2>
+      <h3 param="subheading">
+        <ht key="agenda_subitem.new_for_owner.subheading">
+          For:
+        </ht>
+        <a with="&@agenda_item"/>
+      </h3>
+    </content-header:>
+
+    <content-body: param>
+      <form owner="agenda_item" method="post" param>
+        <field-list: skip="agenda_item"/>
+        <submit: label="#{ht 'agenda_subitem.actions.create', :default=>['Create Agenda subitem']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+
+
+
+<!-- ====== Agenda Pages ====== -->
+
+<def tag="index-page" for="Agenda">
+  <page merge title="#{ht 'agenda.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page agenda" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="agenda.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="agenda.actions.new">New Agenda</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="new-page" for="Agenda">
+  <page merge title="#{ht 'agenda.new.title', :default=>[' New Agenda'] }">
+    <body: class="new-page agenda" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda.new.heading">
+          New Agenda
+        </ht>
+      </h2>
+    </content-header:>
+
+    <content-body: param>
+      <form param>
+        <submit: label="#{ht 'agenda.actions.create', :default=>['Create Agenda']}"/>
+      </form>
+    </content-body:>
+  </page>
+</def>
+
+
+<def tag="show-page" for="Agenda">
+  <page merge title="#{ht 'agenda.show.title', :default=>['Agenda'], :name => name(:no_wrapper => true) }" without-aside >
+
+    <body: class="show-page agenda" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda.show.heading" name="#{name(:no_wrapper => true)}">
+          Agenda <name/>
+        </ht>
+      </h2>
+
+      <record-flags fields="" param/>
+
+      <a action="edit" if="&can_edit?" param="edit-link">
+        <ht key="agenda.actions.edit" name="#{name(:no_wrapper => true)}">
+          Edit Agenda
+        </ht>
+      </a>
+    </content-header:>
+
+    <content-body: param>
+      <field-list fields="meeting_date, meeting_type" param/>
+      <section param="collection-section">
+        <h3 param="collection-heading">
+          <ht key="agenda_item.collection.heading" count="&this.agenda_items.count" >
+            <human-collection-name collection="agenda_items" your/>
+          </ht>
+        </h3>
+
+        <collection:agenda_items param/>
+
+        <a:agenda_items action="new" if="&can_create?(@agenda.agenda_items)" param="new-link">
+          <ht key="agenda_item.actions.new" count="1">
+            New Agenda Item
+          </ht>
+        </a:agenda_items>
+      </section>
+    </content-body:>
+
+  </page>
+</def>
+
+
+<def tag="edit-page" for="Agenda">
+  <page merge title="#{ht 'agenda.edit.title', :default=>['Edit Agenda'], :name => name(:no_wrapper => true) }">
+
+    <body: class="edit-page agenda" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda.edit.heading" name="#{name(:no_wrapper => true)}">
+          Edit Agenda
+        </ht>
+      </h2>
+      <delete-button label="#{ht 'agenda.actions.delete', :default=>['Remove This Agenda']}" param/>
+    </content-header:>
+
+    <content-body: param>
+      <form param/>
+    </content-body:>
+
+  </page>
+</def>
+
 
 
 
@@ -86,7 +599,7 @@
         </ht>
       </h2>
 
-      <record-flags fields="" param/>
+      <record-flags fields="administrator" param/>
 
       <a action="edit" if="&can_edit?" param="edit-link">
         <ht key="user.actions.edit" name="#{name(:no_wrapper => true)}">
@@ -96,6 +609,7 @@
     </content-header:>
 
     <content-body: param>
+      <field-list fields="email_address, state" param/>
     </content-body:>
 
   </page>

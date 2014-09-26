@@ -11,7 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926000023) do
+ActiveRecord::Schema.define(version: 20140926003203) do
+
+  create_table "agenda_items", force: true do |t|
+    t.integer  "position"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "agenda_id"
+  end
+
+  add_index "agenda_items", ["agenda_id"], name: "index_agenda_items_on_agenda_id"
+  add_index "agenda_items", ["position"], name: "index_agenda_items_on_position"
+
+  create_table "agenda_subitems", force: true do |t|
+    t.string   "position"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "agenda_item_id"
+  end
+
+  add_index "agenda_subitems", ["agenda_item_id"], name: "index_agenda_subitems_on_agenda_item_id"
+  add_index "agenda_subitems", ["position"], name: "index_agenda_subitems_on_position"
+
+  create_table "agendas", force: true do |t|
+    t.string   "name"
+    t.date     "meeting_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "meeting_type", default: "Business"
+  end
 
   create_table "users", force: true do |t|
     t.string   "crypted_password",          limit: 40

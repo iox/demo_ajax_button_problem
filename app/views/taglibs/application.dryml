@@ -1,3 +1,62 @@
 <!-- this file is included by front_site.dryml, admin_site.dryml et al, so
 you can place common code in this file. -->
 
+<def tag="form" for="Agenda">
+  <form merge param="default">
+    <error-messages param/>
+      <field-list fields="meeting_date, meeting_type" param/>
+    <div param="actions">
+      <submit label="#{ht 'agenda.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+<form for="Agenda" />
+
+<def tag="input" for="Date">
+  <datepicker dateFormat="yy-mm-dd" merge />
+</def>
+
+<page>
+  <after-content:>
+      <% if current_user.administrator? %>
+        <%= link_to "Admin", "/admin/users" %>
+      <% end %>
+  </after-content:>
+  <after-content-body:>
+      <% if current_user.administrator? %>
+        <%= link_to "Admin", "/admin/users" %>
+      <% end %>
+  </after-content-body:>
+</page>
+
+
+<extend tag="page">
+  <old-page merge without-live-search>
+  </old-page>
+</extend>
+
+
+<def tag="controls-with-print">
+  <a param="edit-link" action="edit" if="&can_edit?">
+    <t key="hobo.actions.edit_control">Edit</t>
+  </a>
+  <a param="print-link" action="print" if="&true">
+    <t key="app.actions.print_control">Print</t>
+  </a>
+  <delete-button/> 
+</def> 
+
+<def tag="controls-with-up-dn">
+  <a param="edit-link" action="edit" if="&can_edit?">
+    <t key="hobo.actions.edit_control">Edit</t>
+  </a>
+  <delete-button/>
+  <a param="up-link" action="up" method="get" update="agenda_items" if="&can_edit?">
+    <%= image_tag('up-arrow.png', class: "arrow-button", title: 'Move UP') %> 
+  </a>
+  <a param="dn-link" action="down"  method="get" update="agenda_items" if="&can_edit?"> 
+    <%= image_tag('down-arrow.png', class: "arrow-button", title: 'Move DOWN') %> 
+  </a>
+</def>
+

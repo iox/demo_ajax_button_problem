@@ -1,10 +1,46 @@
 <!-- AUTOMATICALLY GENERATED FILE - DO NOT EDIT -->
 
 
+<def tag="form" for="AgendaItem">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="position, description, agenda" param/>
+    <div param="actions">
+      <submit label="#{ht 'agenda_item.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="AgendaSubitem">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="position, description, agenda_item" param/>
+    <div param="actions">
+      <submit label="#{ht 'agenda_subitem.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
+<def tag="form" for="Agenda">
+  <form merge param="default">
+    <error-messages param/>
+    <field-list fields="name, meeting_date, meeting_type" param/>
+    <div param="actions">
+      <submit label="#{ht 'agenda.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
+    </div>
+  </form>
+</def>
+
+
+
 <def tag="form" for="User">
   <form merge param="default">
     <error-messages param/>
-    <field-list fields="" param/>
+    <field-list fields="name, email_address, administrator, state" param/>
     <div param="actions">
       <submit label="#{ht 'user.actions.save', :default=>['Save']}" param/><or-cancel param="cancel"/>
     </div>

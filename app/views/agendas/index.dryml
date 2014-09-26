@@ -1,0 +1,38 @@
+<!-- ====== Agenda Pages ====== -->
+
+<def tag="index-page" for="Agenda">
+  <page merge title="#{ht 'agenda.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page agenda" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="agenda.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="agenda.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+      <a action="new" to="&model" param="new-link">
+        <ht key="agenda.actions.new">New Agenda</ht>
+      </a>
+
+      <page-nav param="top-page-nav"/>
+
+      <table-plus fields="this">
+        <controls:>
+          <controls-with-print/>
+        </controls:>
+      </table-plus>
+
+    </content-body:>
+  </page>
+</def>
+
+<index-page for="Agenda"/>

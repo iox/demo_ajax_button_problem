@@ -1,0 +1,225 @@
+em.current
+{
+	font-size : 120%;
+	font-weight : bold;
+	color :red;
+}
+
+.table-plus table td.controls {
+    text-align: right;
+    width: 146px;
+}
+
+/* Need to make this more selective to only street-unit-tag class */
+
+fieldset.feckless-fields textarea 
+{
+	border: 1px solid #444;
+	padding: 2px;
+	width : 150px;
+	height : 40px;
+}
+
+th.bday,td.bday
+{
+	padding-left: 15px;
+}
+
+table.bday
+{
+	margin-left : 3em;
+}
+
+.last-name-field
+{
+	position : absolute;
+	left : 0px;
+	top : 0px;
+}
+
+.first-name-field
+{
+	position : absolute;
+	left : 180px;
+	top : 0px;
+}
+
+.called-by-field
+{
+	position : absolute;
+	top 			: 0px;
+	left 			: 360px;
+}
+
+.so-name-field
+{
+	position : absolute;
+	top 			: 0px;
+	left 			: 540px;
+}
+
+.street-unit-field
+{
+	position 	: absolute;
+	left 			: 0px;
+	top 			: 50px;
+}
+
+.city-field
+{
+	position 	: absolute;
+	left 			: 180px;
+	top 			: 50px;
+}
+
+.state-field
+{
+	position 	: absolute;
+	left 			: 360px;
+	top 			: 50px;
+}
+
+.zip-field
+{
+	position 	: absolute;
+	left 			: 540px;
+	top 			: 50px;
+}
+
+.csz-field
+{
+	position 	: absolute;
+	left 			: 180px;
+	top 			: 50px;
+}
+
+.primary-email-field
+{
+	position 	: absolute;
+	left 			: 0px;
+	top 			: 120px;
+}
+
+.secondary-email-field
+{
+	position 	: absolute;
+	left 			: 180px;
+	top 			: 120px;
+}
+
+.phone-numbers-field
+{	
+	position 	: absolute;
+	left 			: 540px;
+	top 			: 120px;
+}
+
+.number-field
+{
+	top : 120px;
+}
+
+.birthday-field
+{
+	position 	: absolute;
+	left 			: 0px;
+	top 			: 170px;
+}
+
+.birthday-tag
+{
+	width : 110px;
+}
+
+.so-birthday-field
+{
+	position 	: absolute;
+	left 			: 180px;
+	top 			: 170px;
+}
+
+.so-birthday-tag
+{
+	width : 110px;
+}
+
+.dcc-millenium1-field
+{
+	position 	: absolute;
+	left 			: 0px;
+	top 			: 240px;
+}
+
+.dcc-century1-field
+{
+	position 	: absolute;
+	left 			: 32px;
+	top 			: 258px;
+}
+
+.dcc1-field
+{
+	position 	: absolute;
+	left 			: 0px;
+	top 			: 240px;
+}
+
+.dcc-millenium2-field
+{
+	position 	: absolute;
+	left 			: 180px;
+	top 			: 240px;
+}
+
+.dcc-century2-field
+{
+	position 	: absolute;
+	left 			: 212px;
+	top 			: 258px;
+}
+
+.dcc2-field 
+{
+	position 	: absolute;
+	left 			: 180px;
+	top 			: 240px;
+}
+
+.color-code-field
+{
+	position 	: absolute;
+	left 			: 360px;
+	top 			: 240px;
+}
+
+.member-position-field
+{
+	position  : absolute;
+	left 			: 0px;
+	top 			: 290px;
+}
+
+#member_form
+{
+	position : relative;
+	height   : 360px;
+/*	background-color : gray; */
+}
+
+#member-actions
+{
+	margin-top : 0px;
+}
+
+#member-show
+{
+	position 	: relative;
+	height 		: 360px;
+}
+
+.arrow-button
+{
+	height  : 20px;
+	width 	: 20px;
+	vertical-align: middle;
+}
