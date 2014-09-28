@@ -52,10 +52,10 @@ you can place common code in this file. -->
     <t key="hobo.actions.edit_control">Edit</t>
   </a>
   <delete-button/>
-  <a param="up-link" action="up" method="get" update="agenda_items" if="&can_edit?">
+  <a param="up-link" action="up" method="get" update="agenda-items" if="&can_edit?">
     <%= image_tag('up-arrow.png', class: "arrow-button", title: 'Move UP') %> 
   </a>
-  <a param="dn-link" action="down"  method="get" update="agenda_items" if="&can_edit?"> 
+  <a param="dn-link" action="down"  method="get" update="agenda-items" if="&can_edit?"> 
     <%= image_tag('down-arrow.png', class: "arrow-button", title: 'Move DOWN') %> 
   </a>
 </def>

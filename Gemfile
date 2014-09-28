@@ -55,3 +55,5 @@ gem "hobo_jquery_ui", "2.1.1"
 gem "jquery-ui-themes", "~> 0.0.4"
 
 gem "table_plus_index", :git => 'https://github.com/dziesig/table_plus_index.git'
+
+gem "thin"

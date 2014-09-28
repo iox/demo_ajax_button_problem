@@ -20,7 +20,8 @@ class AgendaItemsController < ApplicationController
     logger.debug "agenda_item up, #{params.inspect}"
     agenda_item = AgendaItem.find(params[:id])
     agenda_item.move_up
-    @this = agenda_item.agenda
+    params[:page_path] = request.referer
+    hobo_ajax_response
     # redirect_to agenda_path(agenda_item.agenda)
   end
 
@@ -28,7 +29,8 @@ class AgendaItemsController < ApplicationController
     logger.debug "agenda_item down, #{params.inspect}"
     agenda_item = AgendaItem.find(params[:id])
     agenda_item.move_down
-    @this = agenda_item.agenda
+    params[:page_path] = request.referer
+    hobo_ajax_response
     # redirect_to :back # temporary
   end
 end

@@ -1,7 +1,7 @@
 
 <show-page for="Agenda">
   <collection: replace>
-    <div id="agenda_items">
+    <div part="agenda-items">
 	    <table-plus with="&this.agenda_items" fields="position, this">
 	      <controls:><controls-with-up-dn/></controls:>
 	    </table-plus>
